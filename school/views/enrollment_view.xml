@@ -1,0 +1,52 @@
+<odoo>
+    <record id="enrollment_tree_view" model="ir.ui.view">
+        <field name="name">enrollment.tree</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="student_id" string="Student Name" />
+                <field name="course_id" string="Course Name" />
+                <field name="enrollment_date" string="Date of Enrollment" />
+                <field name="status" string="Course Status" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="enrollment_form_view" model="ir.ui.view">
+        <field name="name">enrollment.form</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <form string="Enrollment Form">
+                <sheet>
+                    <group string="Student Information">
+                        <field name="student_id" string="Student Name" />
+                    </group>
+                    <group string="Course Information">
+                        <field name="course_id" string="Course Name" />
+                        <field name="enrollment_date" string="Date of Enrollment" />
+                        <field name="status" string="Course Status" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_of_enrollment_list_action" model="ir.actions.act_window">
+        <field name="name">Enrollment List</field>
+        <field name="res_model">school.enrollment</field>
+        <field name="view_mode">tree,form</field>
+                           <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first Enrollment
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="enrollment_management_menu"
+        name="Enrollment Management"
+        parent="Course_menu_root"
+        action="admin_of_enrollment_list_action"
+        sequence="10"
+    />
+</odoo>

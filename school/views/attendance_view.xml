@@ -1,0 +1,53 @@
+<odoo>
+    <record id="attendance_tree_view" model="ir.ui.view">
+        <field name="name">enrollment.tree</field>
+        <field name="model">school.attendance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="student_id" string="Student Name" />
+                <field name="course_id" string="Course Name" />
+                <field name="attendance_date" string="Date of Attendance" />
+                <field name="status" string="Attendance Status" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="attendance_form_view" model="ir.ui.view">
+        <field name="name">attendance.form</field>
+        <field name="model">school.attendance</field>
+        <field name="arch" type="xml">
+            <form string="Attendance Form">
+                <sheet>
+                    <group string="Student Information">
+                        <field name="student_id" string="Student Name"  />
+                        <field name="status" string="Attendance Status" />
+
+                    </group>
+                    <group string="Course Information">
+                        <field name="course_id" string="Course Name" />
+                        <field name="attendance_date" string="Date of Attendance" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_of_attendance_list_action" model="ir.actions.act_window">
+        <field name="name">Attendance List</field>
+        <field name="res_model">school.attendance</field>
+        <field name="view_mode">tree,form</field>
+                       <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first Attendance
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="Attendance_management_menu"
+        name="attendance Management"
+        parent="admin_menu_root"
+        action="admin_of_attendance_list_action"
+        sequence="10"
+    />
+</odoo>

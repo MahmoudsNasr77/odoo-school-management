@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_student,access_student,model_school_student,,1,1,1,1
+access_course,access_course,model_school_course,,1,1,1,1
+access_instructor,access_instructor,model_school_instructor,,1,1,1,1
+access_enrollment,access_enrollment,model_school_enrollment,,1,1,1,1
+access_attendance,access_attendance,model_school_attendance,,1,1,1,1
+access_grade,access_grade,model_school_grade,,1,1,1,1
+
+
+
+
+
+
+
+

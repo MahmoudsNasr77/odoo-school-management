@@ -1,0 +1,80 @@
+<odoo>
+
+    <record id="course_tree_view" model="ir.ui.view">
+        <field name="name">course tree view</field>
+        <field name="model">school.course</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="course_code" string="Course Code" />
+                <field name="name" string="Course Name" />
+                <field name="description" string="Course description" optional="1" />
+                <field name="instructor_id" string="Instructor Name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="course_form_view" model="ir.ui.view">
+
+        <field name="name">course form view</field>
+        <field name="model">school.course</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <strong>Course Code: </strong>
+                            <field name="course_code" class="oe_inline" placeholder="Instructor Id" />
+                            <br />
+                            <strong>Course Name: </strong>
+                            <field name="name" class="oe_inline" placeholder="Course Name" />
+                        </h1>
+                    </div>
+                    <group string="Basic Information">
+                        <field name="description" string="Course description" />
+                    </group>
+                    <group string="Instructor Information">
+                        <field name="instructor_id" string="Instructor Name" />
+
+                    </group>
+
+                    <notebook>
+                        <page string="Enrolled Students">
+                            <field name="enrollment_ids">
+                                <tree editable="bottom">
+                                    <field name="student_id" />
+                                    <field name="enrollment_date" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action to open Students -->
+    <record id="admin_of_course_list_action" model="ir.actions.act_window">
+        <field name="name">Courses List</field>
+        <field name="res_model">school.course</field>
+        <field name="view_mode">tree,form</field>
+                           <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first Course
+            </p>
+        </field>
+    </record>
+
+    <!-- Students Management under Admin -->
+    <menuitem
+        id="course_management_menu"
+        name="Courses Management"
+        parent="Course_menu_root"
+        sequence="1"
+        action="admin_of_course_list_action"
+    />
+
+
+</odoo>
