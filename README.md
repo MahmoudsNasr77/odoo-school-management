@@ -109,3 +109,19 @@ QWeb & Excel Export
 3. Restart your Odoo server and **update the app list**.
 
 4. Install the **School Management** module from the Apps menu.
+   
+⚙️ Usage
+Install the school_management app.
+
+Configure courses, students, and instructors.
+
+Create timetables and enroll students.
+
+Let automated jobs and constraints do the rest!
+
+
+👥 Author
+Mahmoud Nasr
+GitHub
+
+
