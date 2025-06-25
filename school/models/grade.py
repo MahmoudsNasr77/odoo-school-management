@@ -5,8 +5,8 @@ class Grade(models.Model):
     _name = 'school.grade'
     _description = 'Grade'
 
-    student_id = fields.Many2one('school.student', string='Student', required=True)
-    course_id = fields.Many2one('school.course', string='Course', required=True)
+    student_id = fields.Many2one('school.student', string='Student', required=True,ondelete='cascade')
+    course_id = fields.Many2one('school.course', string='Course', required=True,ondelete='cascade')
     exam_type = fields.Selection(
         [('midterm', 'Midterm'), ('final', 'Final'), ('quiz', 'Quiz')],
         string='Exam Type',

@@ -4,8 +4,8 @@ class Attendance(models.Model):
     _name = 'school.attendance'
     _description = 'Attendance'
 
-    student_id = fields.Many2one('school.student', string='Student', required=True)
-    course_id = fields.Many2one('school.course', string='Course', required=True)
+    student_id = fields.Many2one('school.student', string='Student', required=True,ondelete='cascade')
+    course_id = fields.Many2one('school.course', string='Course', required=True,ondelete='cascade')
     attendance_date = fields.Date(string='Attendance Date', default=fields.Date.context_today, required=True)
     status = fields.Selection(
         [('present', 'Present'), ('absent', 'Absent')],

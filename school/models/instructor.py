@@ -31,7 +31,7 @@ class Instructor(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('instructor_id', 'New') == 'New':
-            vals['instructor_id'] = self.env['ir.sequence'].next_by_code('instructor_sequence') or 'New'
+            vals['instructor_id'] = self.env['ir.sequence'].next_by_code('instructor_squence') or 'New'
         return super().create(vals)
 
     @api.onchange('working_hours')

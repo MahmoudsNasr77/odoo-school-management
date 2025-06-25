@@ -7,6 +7,8 @@
             <tree>
                 <field name="course_code" string="Course Code" />
                 <field name="name" string="Course Name" />
+                <field name="credit_hour" string="Credit Hour" />
+
                 <field name="description" string="Course description" optional="1" />
                 <field name="instructor_id" string="Instructor Name" />
             </tree>
@@ -31,6 +33,8 @@
                     </div>
                     <group string="Basic Information">
                         <field name="description" string="Course description" />
+                        <field name="credit_hour" string="Credit Hour" min="2" max="4" />
+
                     </group>
                     <group string="Instructor Information">
                         <field name="instructor_id" string="Instructor Name" />
@@ -60,7 +64,7 @@
         <field name="name">Courses List</field>
         <field name="res_model">school.course</field>
         <field name="view_mode">tree,form</field>
-                           <field name="help" type="html">
+        <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Add your first Course
             </p>

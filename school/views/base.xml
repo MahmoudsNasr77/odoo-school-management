@@ -3,24 +3,29 @@
 
     <menuitem
         id="base_menu_root"
-        name="School Management"
+        name="El-Nasr School  Management"
         sequence="1"
-     />
-         <menuitem
+    />
+    <menuitem
         id="admin_menu_root"
         name="Students Management"
         parent="base_menu_root"
-     />
+    />
     <menuitem
         id="Course_menu_root"
         name="Courses Management"
         parent="base_menu_root"
-     />
+    />
     <menuitem
         id="instructor_menu_root"
         name="Instructor Management"
         parent="base_menu_root"
-     />
+    />
+    <menuitem
+        id="time_table_menu"
+        name="Time Table"
+        parent="base_menu_root"
+    />
 
 
 

@@ -27,7 +27,6 @@
             <field name="code">instructor_squence</field>
             <field name="prefix">INST</field>
             <field name="padding">5</field>
-
         </record>
     </data>
     
