@@ -38,6 +38,12 @@ Supports enrollment, grading, automated status updates, and more.
 - Tree, Form & Calendar Views
 - Session Times and Rooms
 - Student Group and Grade Year Segmentation
+### 📊 Dashboard
+- Overview of Students, Instructors, and Courses
+- Statistics on Attendance and Grades
+- Smart Buttons for Quick Actions
+- Real-time Data Using Computed Fields
+
 
 ### ⚡️ Automations (Cron Jobs)
 - Daily Student Status Update
