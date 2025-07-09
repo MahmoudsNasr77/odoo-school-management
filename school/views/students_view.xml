@@ -1,0 +1,150 @@
+<odoo>
+    <record id="student_tree_view" model="ir.ui.view">
+        <field name="name">student tree view</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="is_fail" decoration-success="not is_fail">
+                <header>
+                    <button name="excel_report" type="object" string=" Export To Excel " class="btn btn-success fa fa-file-excel-o"/>
+                    <button name="send_whatsapp_bulk" 
+                    type="object" 
+                    string="Send WhatsApp" 
+                    icon="fa-whatsapp" 
+                    class="btn btn-success"/>
+                </header>
+                <field name="student_id" string="Student Id"/>
+                <field name="user_id" string="Student Name"/>
+                <field name="date_of_birth" string="Student Birthday" optional="1"/>
+                <field name="gender" string="Student Gender"/>
+                <field name="address" string="Student Address" optional="1"/>
+                <field name="phone" string="Student phone"/>
+                <field name="gender" string="Student Gender"/>
+                <field name="email" string="Student Email" optional="1"/>
+                <field name="grade_year" string="Grade Year"/>
+                <field name="student_group" string="Student Group "/>
+                <field name="credit_hour" string="Credit Hour"/>
+                <field name="grade" string="Student grade"/>
+                <field name="status" string="Student Status"/>
+                <field name="is_fail" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="student_form_view" model="ir.ui.view">
+        <field name="name">student form view</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Success" bg_color="bg-success" invisible="status !=&apos;success&apos;"/>
+                    <widget name="web_ribbon" title="Fail" bg_color="bg-danger" invisible="status !=&apos;fail&apos;"/>
+                    <widget name="web_ribbon" title="Graduated" bg_color="bg-warning" invisible="grade_year != &apos;graduated&apos;"/>
+                    <header>
+                        <button name="%(timetable_record_pdf)d" type="action" class="oe_highlight" string="Print Timetable" invisible="grade_year == &apos;graduated&apos;"/>
+                        <field name="grade_year" widget="statusbar"/>
+                        <button name="second_grade_action" type="object" class="btn btn-primary" string="Set Student To Second" invisible="grade_year != &apos;first&apos;"/>
+                        <button name="third_grade_action" type="object" class="btn btn-warning" string="Set Student To Third" invisible="grade_year  !=&apos;second&apos;"/>
+                        <button name="fourth_grade_action" type="object" class="btn btn-success" string="Set Student To Fourth" invisible="grade_year != &apos;third&apos;"/>
+                        <button name="graduated_grade_action" type="object" class="btn btn-success" string="Set Student Graduated" invisible="grade_year != &apos;fourth&apos;"/>
+                    </header>
+                    <field name="image" widget="image" class="oe_avatar" readonly="grade_year == &apos;graduated&apos;"/>
+                    <div class="oe_title">
+                        <h1>
+                            <strong>Student Id: </strong>
+                            <field name="student_id" class="oe_inline" placeholder="Student Id"/>
+                            <br/>
+                            <strong>Name: </strong>
+                            <field name="user_id" class="oe_inline" placeholder="Student Name" readonly="grade_year == &apos;graduated&apos;"/>
+                        </h1>
+                    </div>
+                    <group string="Basic Information">
+                        <field name="date_of_birth" string="Student Birthday" readonly="grade_year == &apos;graduated&apos;"/>
+                        <field name="gender" string="Student Gender" readonly="grade_year == &apos;graduated&apos;"/>
+                        <field name="address" string="Student Address" readonly="grade_year == &apos;graduated&apos;"/>
+                    </group>
+                    <group string="Contact Information">
+                        <field name="email" string="Student Email" readonly="grade_year == &apos;graduated&apos;"/>
+                        <field name="phone" string="Student phone" readonly="grade_year == &apos;graduated&apos;"/>
+                    </group>
+                    <group string="Grade Information">
+                        <field name="student_group" string="Student Group " readonly="grade_year == &apos;graduated&apos;"/>
+                        <field name="credit_hour" string="Credit Hour" min="6" max="16" readonly="grade_year == &apos;graduated&apos;"/>
+                        <field name="grade" string="Student grade" readonly="grade_year == &apos;graduated&apos;"/>
+                        <field name="status" string="Student Status" invisible="1"/>
+                        <field name="is_fail" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Time Table">
+                            <field name="timetable_sheet" readonly="1">
+                                <tree>
+                                    <field name="course_id"/>
+                                    <field name="instructor_id"/>
+                                    <field name="start_time"/>
+                                    <field name="end_time"/>
+                                    <field name="room"/>
+                                    <field name="academic_terms"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Student Attendance">
+                            <field name="attendence_sheet" context="{&apos;default_student_id&apos;: active_id}" readonly="1">
+                                <tree editable="bottom">
+                                    <field name="course_id"/>
+                                    <field name="status"/>
+                                    <field name="attendance_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Student Course">
+                            <field name="enrollemet_sheet" context="{&apos;default_student_id&apos;: active_id}" readonly="1">
+                                <tree editable="bottom">
+                                    <field name="course_id"/>
+                                    <field name="enrollment_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="student_search" model="ir.ui.view">
+        <field name="name">Student Search</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id" />
+                <filter name="is_fail" string="By Fail" domain="[('status', '=', 'fail')]" />
+                 <filter name="is_success" string="By Success" domain="[('status', '=', 'success')]" />
+
+                <filter name="group_by_grade_year" string="Group By Grade Year" context="{'group_by':'grade_year'}"/>
+            </search>
+        </field>
+
+    </record>
+
+
+    <record id="admin_of_student_list_action" model="ir.actions.act_window">
+        <field name="name">Students List</field>
+        <field name="res_model">school.student</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first Students
+            </p>
+        </field>
+    </record><!-- Students Management under Admin -->
+    <menuitem id="students_management_menu" name="Students Management" parent="admin_menu_root" sequence="1" action="admin_of_student_list_action"/>
+    <record id="check_student_fail" model="ir.cron">
+        <field name="name">Student: Check Fail</field>
+        <field name="model_id" ref="model_school_student"/>
+        <field name="state">code</field>
+        <field name="code">model.Check_Fail()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+
+
+</odoo>

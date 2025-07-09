@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="auth_login_inherit" inherit_id="web.login">
+            <xpath expr="//form" position="inside">
+                <input type="hidden" name="redirect" value="http://nasr:8069/web" />
+            </xpath>
+        </template>
+    </data>
+</odoo>

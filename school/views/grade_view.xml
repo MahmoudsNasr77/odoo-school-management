@@ -1,0 +1,58 @@
+<odoo>
+    <record id="grade_tree_view" model="ir.ui.view">
+        <field name="name">grade.tree</field>
+        <field name="model">school.grade</field>
+        <field name="arch" type="xml">
+            <tree>
+                        <field name="student_id" string="Student Name" />
+                        <field name="course_id" string="Course Name" />
+                        <field name="grade" string="Course Grade" />
+                        <field name="exam_type" string="Exam Type" />
+                        <field name="date_recorded" string=" Grade Date Recorded " />
+                        <field name="final_grade" string="Final Grad" />
+
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="grade_form_view" model="ir.ui.view">
+        <field name="name">grade.form</field>
+        <field name="model">school.grade</field>
+        <field name="arch" type="xml">
+            <form string="Attendance Form">
+                <sheet>
+                    <group string="Student Information">
+                        <field name="student_id" string="Student Name"  />
+                        <field name="final_grade" string="Final Grade" />
+                        <field name="date_recorded" string=" Grade Date Recorded " />
+                    </group>
+                    <group string="Course Information">
+                        <field name="course_id" string="Course Name" />
+                        <field name="exam_type" string="Exam Type" />
+                        <field name="grade" string="Course Grade" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_of_grade_list_action" model="ir.actions.act_window">
+        <field name="name">Grade List</field>
+        <field name="res_model">school.grade</field>
+        <field name="view_mode">tree,form</field>
+                 <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first Grade
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="grade_management_menu"
+        name="Grade Management"
+        parent="admin_menu_root"
+        action="admin_of_grade_list_action"
+        sequence="10"
+    />
+</odoo>
