@@ -23,10 +23,13 @@ Supports enrollment, grading, automated status updates, and more.
 
 ### 🗓️ Enrollment & Attendance
 - Student Enrollment and Course Dropping
+- **Automatic Attendance Recording (except Fridays)**
 - Attendance Tracking (Present/Absent)
 
 ### 🏅 Grades Management
-- Final Grade Computation (A–F)
+- Grade Entry per Course and Exam Type
+- **Final Results per Course shown on Student Profile**
+- **Letter Grade Calculation (A, B, C, D, F) Based on Average**
 - GPA Computation across Courses
 - Custom Grade Reports
 
@@ -38,10 +41,9 @@ Supports enrollment, grading, automated status updates, and more.
 
 ### ⚡️ Automations (Cron Jobs)
 - Daily Student Status Update
+- **Scheduled Attendance Taking**
 - Weekly Reports Sent to Admin
 - Reminder Email for Instructors 1h Before Class
-
----
 
 ## 🛠️ Technical Details
 - Framework: **Odoo 17**
