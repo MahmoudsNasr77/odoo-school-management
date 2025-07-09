@@ -1,0 +1,70 @@
+<odoo>
+    <record id="school_dashboard_record" model="school.dashboard">
+        <field name="date">2025-06-25</field>
+        <field name="student_count">4</field>
+        <field name="instructor_count">2</field>
+        <field name="course_count">2</field>
+    </record>
+    <record id="school_dashboard_form_view" model="ir.ui.view">
+        <field name="name">school.dashboard.form</field>
+        <field name="model">school.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="School Dashboard">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>School Dashboard</h1>
+                    </div>
+                    <group>
+                        <field name="date" required="1" />
+                        <field name="student_count" readonly="1" />
+                        <field name="instructor_count" readonly="1" />
+                        <field name="course_count" readonly="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="school_dashboard_tree_view" model="ir.ui.view">
+        <field name="name">school.dashboard.tree</field>
+        <field name="model">school.dashboard</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date" />
+                <field name="student_count" />
+                <field name="instructor_count" />
+                <field name="course_count" />
+            </tree>
+        </field>
+    </record>
+    <record id="school_dashboard_graph_view" model="ir.ui.view">
+        <field name="name">school.dashboard.graph</field>
+        <field name="model">school.dashboard</field>
+        <field name="arch" type="xml">
+            <graph string="School Stats">
+                <field name="date" interval="day" />
+                <field name="student_count" type="measure" class="student_style" />
+                <field name="instructor_count" type="measure" class="instructor_style" />
+                <field name="course_count" type="measure" class="course_style" />
+            </graph>
+        </field>
+    </record>
+    <record id="action_school_dashboard" model="ir.actions.act_window">
+        <field name="name">School Dashboard</field>
+        <field name="res_model">school.dashboard</field>
+        <field name="view_mode">graph,tree</field>
+        <field name="target">current</field>
+        <field name="limit">20</field>
+    </record>
+    <record id="ir_cron_school_dashboard" model="ir.cron">
+        <field name="name">Update School Dashboard Daily</field>
+        <field name="model_id" ref="model_school_dashboard" />
+        <field name="state">code</field>
+        <field name="code">model.create_daily_record()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+    </record>
+
+
+    <menuitem id="menu_school_dashboard" name="Dashboard" parent="dashboard_menu_item"
+        action="action_school_dashboard" sequence="1" />
+</odoo>

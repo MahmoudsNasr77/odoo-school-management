@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="time_table_tree" model="ir.ui.view">
+        <field name="name">time table tree</field>
+        <field name="model">school.timetable</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="course_id" />
+                <field name="instructor_id" />
+                <field name="years" readonly="1" />
+                <field name="academic_terms" />
+                <field name="start_time" />
+                <field name="end_time" readonly="1" />
+                <field name="room" />
+            </tree>
+        </field>
+    </record>
+    <record id="timetable_form_view" model="ir.ui.view">
+        <field name="name">timetable.form</field>
+        <field name="model">school.timetable</field>
+        <field name="arch" type="xml">
+            <form string="timetable Form">
+                <sheet>
+                    <group string="Time Table Information">
+                        <field name="years" string="Time Table Year" readonly="1" />
+                        <field name="academic_terms" string=" Academic Term" />
+                    </group>
+                    <group string="Student Information">
+                        <field name="student_group" string="Student Group" />
+                        <field name="grade_year" string="Final Grade" />
+                    </group>
+                    <group string="Course Information">
+                        <field name="course_id" string="Course Name" />
+                        <field name="instructor_id" string="Instructor Name" />
+                        <field name="start_time" string="Start Time " />
+                        <field name="end_time" string="End Time" readonly="1" />
+                        <field name="room" string="Room" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="school_timetable_calendar_view" model="ir.ui.view">
+        <field name="name">school.timetable.calendar</field>
+        <field name="model">school.timetable</field>
+        <field name="arch" type="xml">
+            <calendar date_start="start_time" date_stop="end_time" color="instructor_id">
+                <field name="course_id"/>
+                <field name="instructor_id"/>
+                <field name="student_group"/>
+            </calendar>
+        </field>
+    </record>
+    <record id="time_table_record" model="ir.actions.act_window">
+        <field name="name"> Time Table Record</field>
+        <field name="res_model">school.timetable</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first time table
+            </p>
+        </field>
+    </record>
+    <record id="ir_cron_reminders" model="ir.cron">
+        <field name="name">Send Reminders for Upcoming Classes</field>
+        <field name="model_id" ref="model_school_timetable"/>
+        <field name="state">code</field>
+        <field name="code">model.send_reminders_for_upcoming_classes()</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+    </record>
+    <menuitem
+        id="time_table_show"
+        name="Time Table"
+        parent="timetable_menu_item"
+        action="time_table_record"
+    />
+</odoo>

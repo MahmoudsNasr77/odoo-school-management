@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="attendance_tree_view" model="ir.ui.view">
+        <field name="name">school.attendance.tree</field>
+        <field name="model">school.attendance</field>
+        <field name="arch" type="xml">
+            <tree string="Attendance Tree">
+         
+                <field name="student_id"/>
+                <field name="course_id"/>
+                <field name="instructor_id"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    
+
+    <record id="attendance_action" model="ir.actions.act_window">
+        <field name="name">attendance action</field>
+        <field name="res_model">school.attendance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add your first Attendance</p>
+
+            
+        </field>
+    </record>
+    <menuitem
+        id="attendance_menu"
+        name="Student Attendance"
+        action="attendance_action"
+        parent="student_menu_item"
+        sequence="10"/>
+</odoo>

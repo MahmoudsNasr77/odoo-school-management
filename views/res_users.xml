@@ -1,0 +1,15 @@
+<odoo>
+    <record id="view_res_partner_form_inherit_national_id" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.national.id</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_simple_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <group>
+                    <field name="x_national_id" string="National ID" />
+                    <field name="gender" string="Gender" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

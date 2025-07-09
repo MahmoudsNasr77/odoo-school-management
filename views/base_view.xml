@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="base_menu_item" name="EL Nasr Private School" sequence="1" />
+
+    <menuitem id="dashboard_menu_item" name="Dashboard Management" parent="base_menu_item"
+        sequence="1" />
+    <menuitem id="student_menu_item" name="Students Management" parent="base_menu_item"
+        sequence="2" />
+
+    <menuitem id="course_menu_item" name="Course Management" parent="base_menu_item" sequence="3" />
+
+
+    <menuitem id="timetable_menu_item" name="Timetable Management" parent="base_menu_item"
+        sequence="4" />
+
+    <menuitem id="instructor_menu_item" name="Instructor Management" parent="base_menu_item"
+        sequence="5" />
+
+</odoo>

@@ -1,0 +1,57 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="grade_tree_view" model="ir.ui.view">
+        <field name="name">school.grade.tree</field>
+        <field name="model">school.grade</field>
+        <field name="arch" type="xml">
+            <tree string="Grades">
+                <field name="student_id" />
+                <field name="course_id" />
+                <field name="exam_type" />
+                <field name="grade" />
+                <field name="exam_grade" />
+                <field name="date" />
+                <field name="notes" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="grade_form_view" model="ir.ui.view">
+        <field name="name">school.grade.form</field>
+        <field name="model">school.grade</field>
+        <field name="arch" type="xml">
+            <form string="Grade Form">
+                <sheet>
+                    <group>
+                        <field name="student_id" />
+                        <field name="course_id" />
+                        <field name="exam_type" />
+                        <field name="grade" />
+                        <field name="exam_grade" readonly="1" />
+                        <field name="date" />
+                        <field name="notes" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!-- Action -->
+    <record id="action_school_grade_list" model="ir.actions.act_window">
+        <field name="name">Grades</field>
+        <field name="res_model">school.grade</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add the first student grade</p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_school_grade" name="Grades"
+        parent="student_menu_item"
+        action="action_school_grade_list"
+        sequence="20" />
+</odoo>

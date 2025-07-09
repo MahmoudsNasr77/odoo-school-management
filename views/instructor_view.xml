@@ -1,0 +1,146 @@
+<odoo>
+
+    <record id="instructor_tree_view" model="ir.ui.view">
+        <field name="name">school.instructor.tree</field>
+        <field name="model">school.instructor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="instructor_id" />
+                <field name="name" />
+                <field name="phone" />
+                <field name="email" />
+                <field name="address" optional="1" />
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="instructor_form_view" model="ir.ui.view">
+        <field name="name">school.instructor.form</field>
+        <field name="model">school.instructor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Instructor Name" />
+                        </h1>
+                    </div>
+
+                    <group>
+                        <field name="image" widget="image" class="oe_avatar" />
+                    </group>
+
+                    <group string="Basic Information" col="2">
+                        <field name="instructor_id" readonly="1" />
+                        <field name="address" />
+                    </group>
+
+                    <group string="Contact Information" col="2">
+                        <field name="email" />
+                        <field name="phone" />
+                    </group>
+
+                    <group string="Outcome Information" col="2">
+                        <field name="max_working_hour" />
+                        <field name="max_number_of_course" />
+
+                        <field name="working_hours" groups="school.administrator_group" />
+
+                        <field name="salary" readonly="1" />
+                    </group>
+
+                    <notebook>
+                        <page string="Courses Taught">
+                            <field name="courses_list">
+                                <tree editable="bottom">
+                                    <field name="course_code" />
+                                    <field name="name" />
+                                    <field name="description" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="instructor_kanban_view" model="ir.ui.view">
+        <field name="name">school.instructor.kanban</field>
+        <field name="model">school.instructor</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="salary" quick_create="true">
+                <field name="salary" string="Group By Salary:" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card card shadow-sm p-2" style="min-height: 120px;">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary mb-2">
+                                    <field name="name" />
+                                </h5>
+                                <p class="card-text text-muted">
+                                    <small>
+                                        <strong>Instructor ID: </strong>
+                                        <field name="instructor_id" />
+                                    </small>
+                                </p>
+                                <p class="card-text mb-1">
+                                    <strong>Phone: </strong>
+                                    <field name="phone" />
+                                </p>
+
+                                <div class="mt-2">
+                                    <t t-if="record.salary.raw_value &gt; 12000">
+                                        <span class="badge bg-danger">Senior</span>
+                                    </t>
+                                    <t t-elif="record.salary.raw_value &gt; 10000">
+                                        <span class="badge bg-success">Mid</span>
+                                    </t>
+                                    <t t-elif="record.salary.raw_value &gt; 1000">
+                                        <span class="badge bg-secondary">Fresh</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge bg-light text-dark">
+                                            <field name="salary" />
+                                        </span>
+                                    </t>
+                                </div>
+                                <div class="mt-2">
+                                    <a type="open" name="record.id"
+                                        class="btn btn-primary btn-sm mt-2" role="button">
+                                        <i class="fa fa-eye" /> View </a>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_instructor_list" model="ir.actions.act_window">
+        <field name="name">Instructors</field>
+        <field name="res_model">school.instructor</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first instructor
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_instructor_management"
+        name="Instructor Management"
+        parent="instructor_menu_item"
+        sequence="1"
+        action="action_instructor_list"
+    />
+
+</odoo>

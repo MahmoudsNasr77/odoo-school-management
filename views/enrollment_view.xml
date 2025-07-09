@@ -1,0 +1,143 @@
+<odoo>
+    <record id="enrollment_tree_view" model="ir.ui.view">
+        <field name="name">enrollment.tree</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <header>
+                                        <button name="take_attendance" type="object" string="Take Attendance" class="oe_highlight"/>
+
+                </header>
+                <field name="student_id" string="Student Name" />
+                <field name="course_id" string="Course Name" />
+                <field name="enrollment_date" string="Date of Enrollment" />
+                <field name="status" string="Course Status" />
+            </tree>
+        </field>
+    </record>
+    <record id="enrollment_kanban_view" model="ir.ui.view">
+        <field name="name">school.enrollment.kanban</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" quick_create="false">
+                <field name="status" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card card shadow-sm p-2" style="min-height: 120px;">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary mb-2">
+                                    <field name="student_id" />
+                                </h5>
+                                <p class="card-text mb-1">
+                                    <strong>Course:</strong>
+                                    <field name="course_id" />
+                                </p>
+                                <p class="card-text text-muted">
+                                    <small>
+                                        <strong>Date:</strong>
+                                        <field name="enrollment_date" />
+                                    </small>
+                                </p>
+                                <div class="mt-2">
+                                    <t t-if="record.status.raw_value == 'active'">
+                                        <span class="badge bg-secondary">Active</span>
+                                    </t>
+                                    <t t-elif="record.status.raw_value == 'completed'">
+                                        <span class="badge bg-success">Completed</span>
+                                    </t>
+                                    <t t-elif="record.status.raw_value == 'dropped'">
+                                        <span class="badge bg-danger">Dropped</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge bg-light text-dark">
+                                            <field name="status" />
+                                        </span>
+                                    </t>
+                                </div>
+                                <div class="mt-2">
+                                    <a type="open" name="record.id"
+                                        class="btn btn-primary btn-sm mt-2" role="button">
+                                        <i class="fa fa-eye" /> View </a>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+
+
+    <record id="enrollment_form_view" model="ir.ui.view">
+        <field name="name">enrollment.form</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <form string="Enrollment Form">
+                <sheet>
+                    <group string="Student Information">
+                        <field name="student_id" string="Student Name" />
+                    </group>
+                    <group string="Course Information">
+                        <field name="course_id" string="Course Name" />
+                        <field name="enrollment_date" string="Date of Enrollment" />
+                        <field name="status" string="Course Status" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+        <record id="enrollment_search" model="ir.ui.view">
+        <field name="name">Enrollment Search</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="student_id" />
+                <field name="course_id" />
+                <field name="status" />
+
+                <filter name="is_fail" string="By Fail" domain="[('status', '=', 'active')]" />
+                <filter name="is_success" string="By Success" domain="[('status', '=', 'completed')]" />
+                <filter name="is_success" string="By Success" domain="[('status', '=', 'dropped')]" />
+
+                <filter name="group_by_course" string="Group By Course"
+                    context="{'group_by': 'course_id'}" />
+        
+                <filter name="group_by_student" string="Group By Status"
+                    context="{'group_by': 'status'}" />
+            </search>
+        </field>
+    </record>
+
+    <record id="admin_of_enrollment_list_action" model="ir.actions.act_window">
+        <field name="name">Enrollment List</field>
+        <field name="res_model">school.enrollment</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first Enrollment
+            </p>
+        </field>
+    </record>
+
+        <record id="take_attendance_from_enrollment" model="ir.cron">
+            <field name="name">Enrollments: Take Attendance</field>
+            <field name="model_id" ref="school.model_school_enrollment"/>
+            <field name="state">code</field>
+            <field name="code">model.search([]).take_attendance()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field> 
+            <field name="active">True</field>
+        </record>
+
+
+    <menuitem id="enrollment_management_menu" name="Enrollment Management" parent="course_menu_item"
+        action="admin_of_enrollment_list_action" sequence="1" />
+</odoo>

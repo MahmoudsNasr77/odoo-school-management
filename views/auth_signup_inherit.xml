@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Add an input field in sign up page, to have the gender-->
+<odoo>
+    <template id="signup_add_gender" inherit_id="auth_signup.signup">
+        <xpath expr="//input[@name='token']" position="before">
+            <div class="mb-3">
+                <label for="sex">Sex</label>
+                <select name="gender" class="form-control link-style">
+                    <option value="">--select--</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <label for="phone">Phone</label>
+
+                <input type="text" name="phone" id="phone" class="form-control form-control-sm" required="required"/>
+                <label for="phone">national_id</label>
+
+                <input type="number" name="x_national_id" id="x_national_id" class="form-control form-control-sm" required="required"/>
+
+            </div>
+        </xpath>
+    </template>
+</odoo>
